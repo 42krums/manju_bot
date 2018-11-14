@@ -1,0 +1,10 @@
+version: '3'
+services:
+  manju_bot:
+    container_name: manju_bot
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 10080:10080
+    tty: true
