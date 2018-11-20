@@ -5,6 +5,4 @@ services:
     build: .
     volumes:
       - .:/app
-    ports:
-      - 10080:10080
     tty: true

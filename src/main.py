@@ -1,10 +1,15 @@
 import discord, asyncio, configparser
 
 config = configparser.ConfigParser()
-config.read("../config/token")
+config.read("../config/config")
 token = config.get("token","discord")
+env = config.get("env", "env")
 
 client = discord.Client()
+channel_list = {
+    "general": "508825694567137299",
+    "bot_test" : "512270615202365441"
+}
 
 @client.event
 async def on_ready():
@@ -12,12 +17,22 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    print(message)
 
 @client.event
 async def on_message(message):
-    if message.content.startswith('こんにちは'):
+    print(message)
+    if message.content.startswith('/hey'):
         await client.send_message(message.channel, "(っ'-')╮ =͟͟͞͞ ")
-        // 工科大まんじゅう.jpgを添付
+    elif message.content.startswith('/github'):
+        await client.send_message(message.channel, "https://github.com/42krums/manju_bot")
+    # --- test code ---
+    elif message.content.startswith('/test') and env == 'dev':
+        await on_member_join(message)
+
+@client.event
+async def on_member_join(member):
+    send_channel = client.get_channel(channel_list["general"])
+    print(send_channel, 'a')
+    await client.send_message(send_channel, "工科大まんじゅうおいしい！一番好きなまんじゅうです！ \n (っ'-')╮ =͟͟͞͞ ")
 
 client.run(token)

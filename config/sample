@@ -1,2 +1,4 @@
 [token]
 discord=yourtoken
+[env]
+env=dev OR prd
